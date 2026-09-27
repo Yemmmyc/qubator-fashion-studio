@@ -127,3 +127,93 @@ MVP is successful if within 8 weeks of launch:
 - AI cost per approved look stays under target ($0.30).
 
 **Tracking:** project creation, upload count, generations per garment, keep rate, time-to-export, share-link opens, credit consumption.
+
+---
+
+## 11. Implementation Plan & Agent Steering Decisions
+
+### 11.1 Proposed implementation phases (Phase 0 through Phase 5)
+
+**Phase 0: Local setup**
+- Objective: Reproducible local run.
+- Work: `package.json` + Express static server, SQLite schema init script, `uploads/` + `seed/` mock data.
+- Outputs: `server.js`, `db/schema.sql`, `db/seed.sql`, `uploads/.gitkeep`
+- Verify: `npm install && npm start` loads blank page at `http://localhost:3000`, empty DB created.
+
+**Phase 1: Lesson 6 single-page prototype (current assessment scope)**
+- Objective: One working page demonstrating PRD §5 journey with mock data.
+- Work: Extend `index.html` with sections: Project header (FR-4), Garment grid (FR-7/FR-8), Generation controls — model/pose/background/aspect presets (FR-10) with Mock Generate returning 2–4 placeholder variants, Curation — approve/cover/reorder (FR-12/FR-14/FR-15), credit counter stub (FR-13).
+- Outputs: Updated `index.html`, `styles.css`, `app.js`
+- Verify: Open page locally, create test project → add mock garment → click Generate → see variants → approve one → set cover → reorder persists on reload via SQLite. No real AI call.
+
+**Phase 2: Auth + Projects Dashboard (FR-1–FR-6)**
+- Objective: Real project ownership.
+- Work: Signup/login/logout with hashed passwords, session persist, per-user project CRUD/archive, dashboard with cover/look count/updated date.
+- Outputs: `routes/auth.js`, `routes/projects.js`, dashboard UI update
+- Verify: Two demo users see only own projects; logout/login persists; archive/delete works.
+
+**Phase 3: Garment management (FR-7–FR-9)**
+- Objective: Real uploads.
+- Work: Upload validation (type/size/count), progress + thumbnails + error states, edit name/description/tags, delete.
+- Outputs: `routes/garments.js`, `uploads/*` handling
+- Verify: Upload 10MB+ rejected, 10-item limit enforced, thumbnails show.
+
+**Phase 4: Generation + Curation (FR-10–FR-16)**
+- Objective: Replace mock with queue-ready structure.
+- Work: Generation history store, hero approve/reject/regenerate, credit decrement + insufficient-credit block, drag-drop order persist, only approved in export.
+- Outputs: `routes/generations.js`, curation board UI
+- Verify: Each generate = 1 credit, <60s stub, history viewable, order survives restart.
+
+**Phase 5: Export/Share + Hardening (FR-17–FR-19, §8)**
+- Objective: Close PRD loop.
+- Work: PNG/ZIP download, PDF lookbook (cover + 1 look/page), toggleable unguessable share link, retry/refund on fail, rate limits.
+- Outputs: `routes/export.js`, `routes/share.js`
+- Verify: ZIP/PDF contain only approved looks; share link on/off works; failed run refunds credit.
+
+### 11.2 Current Lesson 6 scope
+
+Stop after Phase 1. Only a single working local application page with mock/test data is required for this assessment. No deploy. No real credentials, passwords, API keys, or private information.
+
+### 11.3 Technology choices for local prototype
+
+1. **Frontend: Vanilla HTML + CSS + JavaScript.** No build system. Extends existing `index.html`.
+2. **Backend: Node.js + Express.** Local static server + small mock JSON API.
+3. **Database: SQLite.** File-based, local only (`fashion-studio.db`).
+4. **Authentication: mocked demo user only** (e.g. `demo@local.test`). No real passwords. Full auth (FR-1–FR-3) deferred to Phase 2.
+5. **File storage: local `uploads/` folder with mock/test images only.** No cloud storage.
+
+### 11.4 Frontend review: Vanilla HTML/CSS/JS versus React
+
+- **Vanilla:** zero build, lowest local complexity, sufficient for single-page prototype; becomes harder to maintain as FR-10–FR-19 workflow state grows; low component reusability.
+- **React:** reusable components (`ProjectCard`, `GarmentCard`, `GenerationGrid`, `CurationBoard`) and structured state suit full MVP expansion; requires Node/npm/build (e.g. Vite), overkill for current single-page assessment.
+
+### 11.5 Steering decision
+
+- **Decision:** Use Vanilla HTML/CSS/JS for the current Lesson 6 prototype.
+- **Reason:** The assessment only requires a single local working page with mock data, so avoiding unnecessary build complexity is appropriate and lets the work focus on demonstrating the Fashion Studio workflow.
+- **Future:** React may be considered for a future full MVP if the application expands, where reusable components and structured state management would help.
+
+---
+
+## 12. Design Refinement & Agent Steering Notes
+
+### 12.1 Original design direction
+
+Standalone `design.html` preview per PRD §11: warm canvas `#FAF8F5`, white surface, muted gold `#C9A96A` accent, dark plum `#2B2137`, sage `#DDE3DA`; Georgia serif headings + system sans body; hero with tagline heading, dark primary button, mock SS27 Capsule project cards. Visual-only, mock/test data, no backend/auth/database.
+
+### 12.2 Refinement requested
+
+Improve visual hierarchy and accessibility of the primary CTA button and the main page heading, without a full redesign and while keeping the existing palette and editorial aesthetic.
+
+### 12.3 Why requested
+
+Review of the preview showed the "Fashion Studio" product name did not stand out as the primary heading, and the primary CTA needed stronger contrast and readability against the background.
+
+### 12.4 Specific changes made
+
+- **Heading:** enlarged header brand to 30px bold plum; added gold-underlined `FASHION STUDIO` eyebrow above hero H1; hero H1 increased to 52px desktop / 38px mobile, plum `#2B2137`, tighter spacing for primary-heading dominance.
+- **Primary CTA:** background changed to dark plum `#2B2137` with white `#FFFFFF` text, 2px plum border, 16px bold text, larger padding, drop shadow for contrast; hover to near-black; gold `focus-visible` outline for keyboard accessibility. Same warm palette, editorial style retained.
+
+### 12.5 Confirmation
+
+Refinement applied to `design.html` only. `index.html` untouched. No application, backend, database, or authentication added. Mock/test data only.

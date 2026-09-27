@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fashion Studio — Design Preview</title>
+<style>
+  :root{
+    --bg:#FAF8F5;
+    --surface:#FFFFFF;
+    --ink:#1A1A1E;
+    --muted:#6B6B76;
+    --line:#E8E2D9;
+    --accent:#C9A96A;
+    --accent-ink:#1A1A1E;
+    --plum:#2B2137;
+    --sage:#DDE3DA;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 64px}
+  header.top{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 0;margin-bottom:24px;
+  }
+  .brand{font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:700;letter-spacing:.5px;color:var(--plum)}
+  .brand span{color:var(--accent)}
+  .badge{font-size:12px;border:1px solid var(--line);background:var(--surface);
+    padding:6px 12px;border-radius:999px;color:var(--muted)}
+  .hero{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:36px 32px;
+    display:grid;grid-template-columns:1.2fr .8fr;gap:28px;
+  }
+  h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:52px;line-height:1.05;margin:0 0 12px;
+    color:var(--plum);letter-spacing:-.5px;font-weight:700;
+  }
+  .eyebrow{
+    display:inline-block;font-size:12px;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--plum);
+    border-bottom:3px solid var(--accent);
+    padding-bottom:6px;margin-bottom:14px;
+  }
+  .lede{color:var(--muted);font-size:17px;max-width:46ch;margin:0 0 20px}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+  .btn-primary{
+    background:var(--plum);color:#FFFFFF;border:2px solid var(--plum);border-radius:999px;
+    padding:14px 28px;font-size:16px;font-weight:700;letter-spacing:.01em;cursor:pointer;
+    box-shadow:0 4px 14px rgba(43,33,55,.35);
+  }
+  .btn-primary:hover{background:#1A1A1E;border-color:#1A1A1E}
+  .btn-primary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  .btn-ghost{
+    background:transparent;border:1px solid var(--ink);border-radius:999px;
+    padding:12px 22px;font-size:15px;cursor:pointer;
+  }
+  label.field-label{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin:18px 0 8px}
+  .input-row{display:flex;gap:10px}
+  input[type=text]{
+    flex:1;border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;font-size:15px;background:#fff;color:var(--ink);
+  }
+  input[type=text]:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+  .hero-visual{
+    background:linear-gradient(160deg,var(--plum),#5A4A6B 60%,var(--accent));
+    border-radius:10px;min-height:260px;color:#fff;padding:22px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+  }
+  .hero-visual small{opacity:.8;letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+  .hero-visual strong{font-family:Georgia,serif;font-size:28px}
+  section{margin-top:32px}
+  .card{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:24px;
+  }
+  h2{font-family:Georgia,serif;font-size:26px;margin:0 0 8px}
+  h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:24px 0 12px}
+  p.body{margin:0 0 10px;color:#333}
+  .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .swatch{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff}
+  .swatch i{display:block;height:64px}
+  .swatch b{display:block;font-size:13px;padding:8px 10px 0}
+  .swatch span{display:block;font-size:12px;color:var(--muted);padding:0 10px 10px}
+  .type-demo h1{font-size:32px}
+  .grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;
+  }
+  .garment{
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;
+  }
+  .thumb{height:150px;display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-size:20px;color:#fff}
+  .t1{background:linear-gradient(140deg,#2B2137,#7A6A8A)}
+  .t2{background:linear-gradient(140deg,#8A6D3B,#E5C98A);color:#2B2137}
+  .t3{background:linear-gradient(140deg,#3E4A3D,#A8B8A2)}
+  .garment div.body{padding:12px 14px}
+  .garment strong{display:block;font-size:15px}
+  .garment small{color:var(--muted)}
+  .meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .pill{font-size:12px;background:var(--bg);border:1px solid var(--line);
+    border-radius:999px;padding:4px 10px}
+  .cover{border:2px solid var(--accent)}
+  footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center}
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;padding:24px 20px}
+    h1{font-size:38px}
+    .palette{grid-template-columns:repeat(2,1fr)}
+    .grid{grid-template-columns:1fr}
+    .input-row{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">Fashion <span>Studio</span></div>
+    <div class="badge">Lesson 6 — Design Preview (mock data only)</div>
+  </header>
+
+  <div class="hero">
+    <div>
+      <span class="eyebrow">Fashion Studio</span>
+      <h1>Create studio-quality fashion showcases.</h1>
+      <p class="lede">Fashion Studio is an AI-assisted platform for designers and small brands. Upload garments, generate showcase images, curate a collection, then export or share it — without an expensive photoshoot.</p>
+      <div class="actions">
+        <button class="btn-primary" type="button">Generate Showcase</button>
+        <button class="btn-ghost" type="button">View Lookbook</button>
+      </div>
+      <label class="field-label" for="collection">Sample input — collection name</label>
+      <div class="input-row">
+        <input id="collection" type="text" value="SS27 Capsule — Minimal Studio" readonly aria-readonly="true" />
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <small>Cover look · Mock</small>
+      <strong>Oversized beige trench</strong>
+      <span>Minimal Studio · 4:5 · Approved</span>
+    </div>
+  </div>
+
+  <section class="card">
+    <h2>Colour palette</h2>
+    <p class="body">Warm neutrals with a muted gold accent — modern, editorial, calm. Dark plum used sparingly for contrast.</p>
+    <div class="palette">
+      <div class="swatch"><i style="background:#FAF8F5"></i><b>Canvas</b><span>#FAF8F5</span></div>
+      <div class="swatch"><i style="background:#FFFFFF;border-bottom:1px solid #E8E2D9"></i><b>Surface</b><span>#FFFFFF</span></div>
+      <div class="swatch"><i style="background:#C9A96A"></i><b>Gold accent</b><span>#C9A96A</span></div>
+      <div class="swatch"><i style="background:#2B2137"></i><b>Plum ink</b><span>#2B2137</span></div>
+      <div class="swatch"><i style="background:#DDE3DA"></i><b>Sage</b><span>#DDE3DA</span></div>
+    </div>
+
+    <h3>Typography hierarchy</h3>
+    <div class="type-demo">
+      <h1>Heading — Georgia Serif, 44/34px</h1>
+      <p class="body"><strong>Label — 12px uppercase, tracked.</strong> Used for form labels and section eyebrows.</p>
+      <p class="body">Body — Inter/system sans, 15–17px, 1.6 line-height. Used for descriptions, garment details, and captions.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Project preview — SS27 Capsule (mock)</h2>
+    <p class="body">Style preset: Minimal Studio · 3 looks · Credits left: 7 · All data is mock/test content.</p>
+    <div class="grid">
+      <div class="garment cover">
+        <div class="thumb t1">Trench</div>
+        <div class="body">
+          <strong>01 — Beige trench ★ Cover</strong>
+          <small>Oversized · Cotton gabardine · Approved</small>
+          <div class="meta"><span class="pill">Minimal Studio</span><span class="pill">4:5</span></div>
+        </div>
+      </div>
+      <div class="garment">
+        <div class="thumb t2">Pleats</div>
+        <div class="body">
+          <strong>02 — Ivory pleated dress</strong>
+          <small>Silk blend · 2 variants · Approved</small>
+          <div class="meta"><span class="pill">Streetwear</span><span class="pill">1:1</span></div>
+        </div>
+      </div>
+      <div class="garment">
+        <div class="thumb t3">Denim</div>
+        <div class="body">
+          <strong>03 — Boxy denim jacket</strong>
+          <small>Raw denim · Awaiting review</small>
+          <div class="meta"><span class="pill">Editorial</span><span class="pill">9:16</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Design preview only — no backend, auth, or database. Mock content per PRD §11.</footer>
+
+</div>
+</body>
+</html>
