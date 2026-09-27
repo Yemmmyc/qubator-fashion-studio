@@ -1,0 +1,12 @@
+{
+  "name": "qubator-fashion-studio",
+  "version": "0.1.0",
+  "description": "Fashion Studio Lesson 6 local prototype — single working page with mock data only",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

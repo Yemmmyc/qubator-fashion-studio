@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Local env / secrets (never commit)
+.env
+.env*.local
+
+# Local prototype runtime / database
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+uploads/*
+!uploads/.gitkeep
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Build / coverage / temp
+dist/
+build/
+coverage/
+.tmp/

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fashion Studio — Local Prototype</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Fashion <span>Studio</span></div>
+    <div class="credits" id="creditBalance">Credits: 10 (mock)</div>
+  </header>
+
+  <span class="eyebrow">Fashion Studio · Local prototype</span>
+  <h1>Create studio-quality fashion showcases.</h1>
+  <p class="lede">Mock prototype per PRD §5: create a project, add garments, generate mock showcase variants, curate the collection. No AI, no auth, no backend data — mock/test content only.</p>
+
+  <ol class="steps" id="steps" aria-label="Workflow progress"></ol>
+
+  <section class="card" aria-labelledby="h-project">
+    <h2 id="h-project">1 · Create Project <span class="mock-tag">mock</span></h2>
+    <form id="projectForm">
+      <div class="row">
+        <div>
+          <label class="fl" for="projectName">Project name</label>
+          <input type="text" id="projectName" value="SS27 Capsule" maxlength="60" />
+        </div>
+        <div>
+          <label class="fl" for="projectPreset">Style preset</label>
+          <select id="projectPreset">
+            <option>Minimal Studio</option>
+            <option>Streetwear</option>
+            <option>Editorial</option>
+          </select>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="btn-primary" type="submit">Create / Continue Project</button>
+        <button class="btn-ghost" type="button" id="resetBtn">Reset demo data</button>
+      </div>
+      <p class="status" id="projectSummary"></p>
+    </form>
+  </section>
+
+  <section class="card" aria-labelledby="h-garments">
+    <h2 id="h-garments">2 · Add Garments <span class="mock-tag">mock</span></h2>
+    <div class="grid" id="garmentGrid"></div>
+    <form id="garmentForm">
+      <div class="row">
+        <div>
+          <label class="fl" for="garmentName">Garment name</label>
+          <input type="text" id="garmentName" placeholder="e.g. Boxy denim jacket" maxlength="60" />
+        </div>
+        <div>
+          <label class="fl" for="garmentTags">Tags</label>
+          <input type="text" id="garmentTags" placeholder="e.g. denim / blue" maxlength="60" />
+        </div>
+      </div>
+      <label class="fl" for="garmentDesc">Description</label>
+      <input type="text" id="garmentDesc" placeholder="e.g. Raw denim, mock fabric" maxlength="120" />
+      <div class="toolbar">
+        <button class="btn-ghost" type="submit">Add Mock Garment</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="card" aria-labelledby="h-generate">
+    <h2 id="h-generate">3 · Generate Showcase <span class="mock-tag">mock</span></h2>
+    <div class="row3">
+      <div>
+        <label class="fl" for="setModel">Model profile</label>
+        <select id="setModel">
+          <option>Model A — Natural</option>
+          <option>Model B — Editorial</option>
+          <option>Model C — Street</option>
+        </select>
+      </div>
+      <div>
+        <label class="fl" for="setPose">Pose</label>
+        <select id="setPose">
+          <option>Studio front</option>
+          <option>Three-quarter</option>
+          <option>Seated</option>
+        </select>
+      </div>
+      <div>
+        <label class="fl" for="setScene">Background / scene</label>
+        <select id="setScene">
+          <option>Minimal Studio</option>
+          <option>Streetwear</option>
+          <option>Editorial</option>
+        </select>
+      </div>
+      <div>
+        <label class="fl" for="setRatio">Aspect ratio</label>
+        <select id="setRatio">
+          <option>4:5</option>
+          <option>1:1</option>
+          <option>9:16</option>
+        </select>
+      </div>
+    </div>
+    <div class="toolbar">
+      <button class="btn-primary" type="button" id="generateBtn">Generate Showcase</button>
+    </div>
+    <p class="status" id="genStatus">Select a garment above, choose settings, then generate. Uses 1 mock credit.</p>
+    <div class="grid" id="variantGrid"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-curate">
+    <h2 id="h-curate">4 · Review / Curate <span class="mock-tag">mock</span></h2>
+    <p class="status" id="curatedState"></p>
+    <p class="status">Approve a variant, set a cover with ★, reorder with ↑ ↓, reject to remove. Only approved looks count as curated (PRD FR-16).</p>
+    <p class="status" id="statusLine"></p>
+  </section>
+
+  <footer>Local prototype only — mock data, no AI/API/auth. Run with <code>npm start</code> → <code>http://localhost:3000</code></footer>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>
