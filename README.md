@@ -48,3 +48,19 @@ Next steps: prototype the project → garment → generate → curate → export
 ## About PRD.md
 
 `PRD.md` is the source of truth for MVP scope. It defines the product overview, users, goals, user journey, MVP features, functional requirements (FR-1–FR-19), non-functional requirements, future enhancements, and success criteria.
+
+## Run & Deploy
+
+Local prototype (existing workflow, unchanged):
+
+```sh
+npm install
+npm start
+# open http://localhost:3000
+```
+
+Netlify deployment (static, mock data only):
+
+- No build step. Publish directory: `.` (serves existing `index.html`, `styles.css`, `app.js`).
+- Functions directory: `netlify/functions` (`health` mirrors the Express `GET /api/health` route; `netlify.toml` redirects `/api/health` to `/.netlify/functions/health`).
+- Deploy by connecting the repo to Netlify or dragging the folder in Netlify Drop. No env vars or secrets required.

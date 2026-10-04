@@ -1,0 +1,11 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Preserve the existing Express route shape on Netlify.
+# Local:  GET /api/health  (server.js)
+# Netlify: GET /api/health -> /.netlify/functions/health
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
