@@ -2,6 +2,12 @@
   publish = "."
   functions = "netlify/functions"
 
+# Service worker must never be served stale, or updates get stuck.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
 # Preserve the existing Express route shape on Netlify.
 # Local:  GET /api/health  (server.js)
 # Netlify: GET /api/health -> /.netlify/functions/health
